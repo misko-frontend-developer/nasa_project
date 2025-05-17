@@ -1,11 +1,14 @@
-
-import './App.css';
-
+import "./App.css";
+import { useEffect } from "react";
+import { httpGetPlanets } from "./requests";
 function App() {
+  useEffect(() => {
+    const test = httpGetPlanets();
+    console.log(test);
+  }, []);
   return (
     <div className="App">
       <header className="App-header">
-
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
