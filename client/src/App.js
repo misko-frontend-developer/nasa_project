@@ -3,8 +3,17 @@ import { useEffect } from "react";
 import { httpGetPlanets } from "./requests";
 function App() {
   useEffect(() => {
-    const test = httpGetPlanets();
-    console.log(test);
+    const fetchData = async () => {
+      try {
+        const response = await httpGetPlanets();
+        const data = await response;
+        console.log("Fetched data:", data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
   }, []);
   return (
     <div className="App">
