@@ -1,5 +1,7 @@
 const launches = new Map();
 
+let latestFlightNumber = 100;
+
 const launch = {
   flightNumber: 100,
   mission: "Super mission",
@@ -13,4 +15,21 @@ const launch = {
 
 launches.set(launch.flightNumber, launch);
 
-module.exports = { launches };
+function existsLaunchWithId(launchId) {
+  return launches.has(launchId);
+}
+
+function getAllLaunches() {
+  return Array.from(launches.values());
+}
+function abortLaunch(launchId) {
+  const aborted = launches.get(launchId);
+  aborted.success = false;
+  aborted.upcomming = false;
+  return aborted;
+}
+function addNewLaunch(launch) {
+  latestFlightNumber++;
+  launches.set(latestFlightNumber, Object.assign(launch, { flightNumber: latestFlightNumber, upcomming: true, success: true }));
+}
+module.exports = { launches, getAllLaunches, addNewLaunch, existsLaunchWithId, abortLaunch };
