@@ -24,6 +24,7 @@ describe("Launch API", () => {
       rocket: "1111",
       destination: "Some destination",
       launchDate: "January 17, 2030",
+      target: "Kepler-1652 b",
     };
 
     const launchDataWithoutDate = {
@@ -37,6 +38,7 @@ describe("Launch API", () => {
       rocket: "1111",
       destination: "Some destination",
       launchDate: "zoot",
+      target: "Kepler-1652 b",
     };
 
     test("It should respond with 201 creted", async () => {
