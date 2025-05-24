@@ -2,8 +2,7 @@ const { parse } = require("csv-parse");
 const fs = require("fs");
 const path = require("path");
 
-const habitablePlanets = [];
-const planets = require("./planets.mongo");
+const Planets = require("./planets.mongo");
 
 function isHabitablePlanet(planet) {
   return (
@@ -26,9 +25,9 @@ function loadPlanetsData() {
       )
       .on("data", async (data) => {
         if (isHabitablePlanet(data)) {
-          // await planets.create({
-          //   keplerName: data.kepler_name,
-          // });
+          await Planets.create({
+            keplerName: data.kepler_name,
+          });
         }
       })
       .on("error", (err) => {
@@ -41,4 +40,8 @@ function loadPlanetsData() {
   );
 }
 
-module.exports = { planets: habitablePlanets, loadPlanetsData };
+async function getPlanets() {
+  return await Planets.find({});
+}
+
+module.exports = { getPlanets, loadPlanetsData };

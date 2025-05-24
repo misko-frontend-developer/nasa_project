@@ -13,7 +13,7 @@ describe("Launch API", () => {
   describe("Test GET /launches", () => {
     test("It should respond with 200 success", async () => {
       const response = await request(app)
-        .get("/launches")
+        .get("/v1/launches")
         .expect("Content-Type", /json/)
         .expect(200);
     });
@@ -44,7 +44,7 @@ describe("Launch API", () => {
     test("It should respond with 201 creted", async () => {
       try {
         const response = await request(app)
-          .post("/launches")
+          .post("/v1/launches")
           .send({
             mission: "ZMT",
             rocket: "1111",
@@ -66,7 +66,7 @@ describe("Launch API", () => {
 
     test("It should check missing required properties", async () => {
       const response = await request(app)
-        .post("/launches")
+        .post("/v1/launches")
         .send(launchDataWithoutDate)
         .expect("Content-Type", /json/)
         .expect(400);
@@ -78,7 +78,7 @@ describe("Launch API", () => {
 
     test("Check for invalid tests", async () => {
       const response = await request(app)
-        .post("/launches")
+        .post("/v1/launches")
         .send(launchDataWithoutInvalidDate)
         .expect("Content-Type", /json/)
         .expect(400);
