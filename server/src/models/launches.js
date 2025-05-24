@@ -78,8 +78,11 @@ async function existsLaunchWithId(launchId) {
   return await launchesDatabase.findOne({ flightNumber: launchId });
 }
 
-async function getAllLaunches() {
-  return await launchesDatabase.find({});
+async function getAllLaunches(skip, limit) {
+  return await launchesDatabase
+    .find({}, { _id: 0, __v: 0 })
+    .skip(skip)
+    .limit(limit);
 }
 async function abortLaunch(launchId) {
   const launch = await launchesDatabase.findOne({ flightNumber: launchId });

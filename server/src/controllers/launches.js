@@ -5,8 +5,11 @@ const {
   existsLaunchWithId,
 } = require("../models/launches");
 
+const { getPagination } = require("../services/query");
+
 async function httpGetAllLaunches(req, res) {
-  const data = await getAllLaunches();
+  const { skip, limit } = getPagination(req.query);
+  const data = await getAllLaunches(skip, limit);
   return res.status(200).json(data);
 }
 async function httpNewLaunch(req, res) {
