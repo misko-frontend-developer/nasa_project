@@ -1,35 +1,34 @@
-import "./App.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { httpGetPlanets } from "./requests";
+
 function App() {
+  const [planets, setPlanets] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await httpGetPlanets();
-        const data = await response;
-        console.log("Fetched data:", data);
+        const data = await httpGetPlanets();
+        console.log("Received:", data);
+        setPlanets(data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Fetch error:", error);
       }
     };
 
     fetchData();
   }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {planets.length === 0 ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          {planets.map((planet, index) => (
+            <div key={index}>{planet.keplerName}</div>
+          ))}
+        </>
+      )}
     </div>
   );
 }

@@ -12,12 +12,6 @@ const server = http.createServer(app);
 
 const { loadPlanetsData } = require("./models/planets");
 
-mongoose.connection.once("open", () => {
-  console.log("Mongo DB connection ready");
-});
-mongoose.connection.on("error", (error) => {
-  console.error(error);
-});
 async function startServer() {
   await mongoose.connect(MONGO_URL);
   await loadPlanetsData();
@@ -28,8 +22,3 @@ async function startServer() {
 }
 
 startServer();
-// async function activate() {
-//   await loadPlanetsData();
-// }
-
-// activate();
